@@ -1,28 +1,4 @@
-pipeline {
-    agent any
-
-    environment {
-        AWS_DEFAULT_REGION = 'us-east-1'
-        S3_BUCKET = 'clahantech2026'
-        CLOUDFRONT_DISTRIBUTION_ID = 'E60GJW85YNVGL'
-    }
-
-    stages {
-
-        stage('Checkout Code') {
-            steps {
-                git branch: 'main',
-                url: 'https://github.com/nexgen369/Frontend_Batch02'
-            }
-        }
-
-        stage('Verify Files') {
-            steps {
-                sh 'ls -la'
-            }
-        }
-
-        stage('Deploy to S3') {
+ stage('Deploy to S3') {
             steps {
 
                 withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
@@ -61,4 +37,3 @@ pipeline {
             echo 'Pipeline failed'
         }
     }
-}
